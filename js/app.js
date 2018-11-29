@@ -7,11 +7,10 @@ class Enemy {
     this.y = y;
     this.speed = speed;
   };
-}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
+  update(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -21,11 +20,12 @@ Enemy.prototype.update = function(dt) {
       this.x = -101;
       this.speed = Math.floor(Math.random() * 200) + 100;
     };
-};
+  };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
+  render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  };
 };
 
 // Random speed from 100-300
@@ -41,21 +41,32 @@ class Player {
   this.x = x;
   this.y = y;
   };
-};
 
-Player.prototype.update = function(dt) {
-}
+  update (dt) {
+  };
 
-Player.prototype.render = function() {
+  render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  };
+
+  handleInput(key) {
+    if (key == 'left'){
+      this.x -= 101;
+    };
+    if (key == 'up'){
+      this.y -= 83;
+    };
+    if (key == 'right'){
+      this.x += 101;
+    };
+    if (key == 'down'){
+      this.y += 83;
+    };
+  };
 };
 
 // need input handler
-Player.handleInput() = function(){
-  if (key == left){
-    this.x -= 101;
-  };
-}
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
