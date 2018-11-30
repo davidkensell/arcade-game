@@ -28,9 +28,6 @@ class Enemy {
   };
 };
 
-// Random speed from 100-300
-// let randSpeed = Math.floor(Math.random() * 200) + 100;
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -65,17 +62,19 @@ class Player {
   };
 };
 
-// need input handler
-
-
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
 // Engine says col * 101, row * 83 img 101x171, canvas 505x606
-// rows: 83, 166, 249? looks off with bugs
-//TODO: randomize enemy creation and push into array
-var allEnemies = [new Enemy(101, 83, 100), new Enemy(202, 166, 200), new Enemy(303, 249, 300)];
+
+function addEnemy() {
+  const yRows = [63, 146, 229]; //Stone rows w/bugs centered
+  let randSpeed = Math.floor(Math.random() * 200) + 100;
+  let randRow = yRows[Math.floor(Math.random() * yRows.length)];
+  let newBug = new Enemy(-101, randRow, randSpeed);
+  allEnemies.push(newBug);
+};
+
+// Place all enemy objects in an array called allEnemies
+var allEnemies = [new Enemy(101, 63, 100), new Enemy(202, 146, 200), new Enemy(303, 229, 300)];
 let player = new Player(208, 404);
 // add enemy locations?
 
