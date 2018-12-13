@@ -17,12 +17,15 @@ class Enemy {
     // all computers.    
     this.x += this.speed * dt;
 
-    // collision detection
+    // Collision detection
+    // comparing x and y values plus h/w of content within img canvas
     if (Math.abs(this.y - player.y) < 20) {
-      let front = (this.x + 87); // width of bug in canvas
+      let front = (this.x + 87); 
       if ((player.x < front) && (player.x + 75 >= this.x)) {
         console.log("collision" + this.x + this.y);
         player.reset();
+        pDeaths++;
+        allDeaths++;
       };
     };
     
@@ -66,12 +69,15 @@ class Player {
     if (this.y < -10) {
       this.y = -10; // prevent avalanche of confirm during delay
       setTimeout(function () {
-        alert("You Win!\nWould you like to play again?");
+        alert("You Win! You defeated " + allEnemies.length + " bugs, and you died " + pDeaths + " times this level (" + allDeaths + " total). But there's always more...");
         player.reset();
-      }, 500);
+        addEnemy();
+        pDeaths = 0;
+      }, 100); // delay gives time to render player in water
     };
   };
 
+  // Move player back to starting position
   reset() {
     this.x = 202;
     this.y = 404;
@@ -100,6 +106,7 @@ class Player {
 // Now instantiate your objects.
 // Engine says col * 101, row * 83 img 101x171, canvas 505x606
 
+// Add an enemy with random row and speed
 function addEnemy() {
   const yRows = [63, 146, 229]; //Stone rows w/bugs centered
   let randSpeed = Math.floor(Math.random() * 200) + 100;
@@ -111,6 +118,8 @@ function addEnemy() {
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [new Enemy(101, 63, 100), new Enemy(202, 146, 200), new Enemy(303, 229, 300)];
 let player = new Player(202, 404);
+var pDeaths = 0;
+var allDeaths = 0;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
