@@ -11,16 +11,28 @@ class Enemy {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
   update(dt) {
+
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
-    // all computers.
+    // all computers.    
     this.x += this.speed * dt;
+
+    // collision detection
+    if (Math.abs(this.y - player.y) < 20) {
+      let front = (this.x + 87); // width of bug in canvas
+      if ((player.x < front) && (player.x + 75 >= this.x)) {
+        console.log("collision" + this.x + this.y);
+        player.reset();
+      };
+    };
+    
     // if run off screen, restart at random speed from 100-300
     if (this.x >= 505) {
       this.x = -101;
       this.speed = Math.floor(Math.random() * 200) + 100;
     };
   };
+
 
 // Draw the enemy on the screen, required method for game
   render() {
@@ -40,6 +52,29 @@ class Player {
   };
 
   update (dt) {
+    // Gameboard boundary
+    if (this.x > 404) {
+      this.x = 404;
+    };
+    if (this.x < 0) {
+      this.x = 0;
+    };
+    if (this.y > 404) {
+      this.y = 404;
+    };
+    // win alert on half sec delay for rendering
+    if (this.y < -10) {
+      this.y = -10; // prevent avalanche of confirm during delay
+      setTimeout(function () {
+        alert("You Win!\nWould you like to play again?");
+        player.reset();
+      }, 500);
+    };
+  };
+
+  reset() {
+    this.x = 202;
+    this.y = 404;
   };
 
   render() {
@@ -75,9 +110,7 @@ function addEnemy() {
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [new Enemy(101, 63, 100), new Enemy(202, 146, 200), new Enemy(303, 229, 300)];
-let player = new Player(208, 404);
-// add enemy locations?
-
+let player = new Player(202, 404);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
