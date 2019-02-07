@@ -1,5 +1,7 @@
 # Arcade Game
 
+Demo: https://davidkensell.github.io/arcade-game/
+
 ## Requirements
 
 This Javascript based game requires a keyboard and browser. Movement is based on keypress, so it will not work on mobile.
